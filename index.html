@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juan Ignacio Almenara Ortiz — Ingeniero & Científico</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f2eb;
+    --accent: #c8410a;
+    --accent2: #2563a8;
+    --muted: #6b6255;
+    --rule: rgba(13,13,13,0.12);
+    --grid: rgba(13,13,13,0.04);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    overflow-x: hidden;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* ── NOISE overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .hero-left {
+    padding: 5rem 4rem 5rem 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--rule);
+    position: relative;
+    animation: fadeSlideUp 0.8s ease both;
+  }
+
+  .hero-right {
+    padding: 5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    animation: fadeSlideUp 0.8s 0.2s ease both;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.0;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .subtitle {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+  }
+
+  .bio {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: #3a342b;
+    max-width: 42ch;
+  }
+
+  .contact-row {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-item {
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-item:hover { color: var(--accent); }
+
+  .contact-item .dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Math decoration */
+  .math-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 4rem;
+    opacity: 0.08;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .math-line {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 4rem;
+    right: 4rem;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    line-height: 1.6;
+    animation: rotate 30s linear infinite;
+    background: rgba(245,242,235,0.7);
+  }
+
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    border-bottom: 1px solid var(--rule);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-num {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    padding: 1.5rem;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 1.5rem 4rem;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── PILLARS ── */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .pillar {
+    padding: 3.5rem 3.5rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .pillar:last-child { border-right: none; }
+
+  .pillar:hover { background: rgba(13,13,13,0.02); }
+
+  .pillar-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .pillar h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .pillar p {
+    font-size: 0.82rem;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    padding: 0;
+  }
+
+  .job {
+    display: grid;
+    grid-template-columns: 6rem 1fr auto;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.2s;
+  }
+
+  .job:last-child { border-bottom: none; }
+  .job:hover { background: rgba(13,13,13,0.02); }
+
+  .job-year {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    padding: 2.5rem 1.5rem;
+    border-right: 1px solid var(--rule);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .job-content {
+    padding: 2.5rem 4rem;
+  }
+
+  .job-company {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.3rem;
+  }
+
+  .job-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+
+  .job-desc {
+    font-size: 0.8rem;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+
+  .job-tag {
+    padding: 2.5rem 2.5rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+
+  .tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.3rem 0.7rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .tag.accent { background: var(--accent); }
+  .tag.accent2 { background: var(--accent2); }
+
+  /* ── SKILLS GRID ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .skill-cell {
+    padding: 2.5rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .skill-cell:nth-child(4n) { border-right: none; }
+
+  .skill-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .skill-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ── LANGUAGES ── */
+  .languages {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .lang {
+    padding: 3rem 3rem;
+    border-right: 1px solid var(--rule);
+    text-align: center;
+  }
+
+  .lang:last-child { border-right: none; }
+
+  .lang-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .lang-level {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── FOOTER CTA ── */
+  .footer-cta {
+    padding: 6rem;
+    text-align: center;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer-cta::before {
+    content: '∑∫∂∇';
+    position: absolute;
+    font-family: 'DM Serif Display', serif;
+    font-size: 12rem;
+    opacity: 0.04;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: 2rem;
+    pointer-events: none;
+  }
+
+  .footer-cta h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .footer-cta p {
+    font-size: 0.85rem;
+    color: rgba(245,242,235,0.5);
+    margin-bottom: 3rem;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+
+  .cta-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .cta-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(245,242,235,0.3);
+    color: var(--paper);
+    transition: all 0.25s;
+  }
+
+  .cta-btn:hover {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+  }
+
+  .cta-btn.filled {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .cta-btn.filled:hover {
+    background: #a33208;
+    border-color: #a33208;
+    color: var(--paper);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 4rem 2rem; border-right: none; }
+    .hero-right { min-height: 300px; }
+    .pillars, .languages { grid-template-columns: 1fr; }
+    .pillar, .lang { border-right: none; border-bottom: 1px solid var(--rule); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .job { grid-template-columns: 4rem 1fr; }
+    .job-tag { display: none; }
+    .section-title { padding: 1.5rem 2rem; }
+    .job-content { padding: 2rem; }
+    .footer-cta { padding: 4rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <span class="eyebrow">// Ingeniero Electrónico · Lima, Perú</span>
+    <h1>Juan <em>Ignacio</em><br>Almenara<br>Ortiz</h1>
+    <p class="subtitle">Desarrollador de Software & Hardware Científico</p>
+    <p class="bio">
+      Programador científico certificado (LabVIEW CLD) con más de una década diseñando
+      soluciones de medición e instrumentación para ingeniería vial, seguridad electrónica
+      e ingeniería biomédica. Movido por la certeza de que la matemática bien aplicada
+      transforma la realidad.
+    </p>
+    <div class="contact-row">
+      <a class="contact-item" href="mailto:juanalmenara@gmail.com">
+        <span class="dot"></span>juanalmenara@gmail.com
+      </a>
+      <a class="contact-item" href="tel:+51999304431">
+        <span class="dot"></span>+51 999 304 431
+      </a>
+      <a class="contact-item" href="https://www.linkedin.com/in/juan-ignacio-almenara-ortiz-23b4383a/" target="_blank">
+        <span class="dot"></span>LinkedIn
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="math-bg">
+      <div class="math-line">f(x) = ∫₀^∞ e^{-x²} dx = √π / 2</div>
+      <div class="math-line">IRI = (1/L) ∫₀^L |z'(x)| dx</div>
+      <div class="math-line">∇²φ = ρ/ε₀</div>
+      <div class="math-line">y[n] = Σ h[k] · x[n−k]</div>
+      <div class="math-line">V = IR,   P = I²R</div>
+      <div class="math-line">FFT: X[k] = Σ x[n]·e^{-j2πkn/N}</div>
+      <div class="math-line">σ = F/A,   ε = ΔL/L</div>
+    </div>
+    <div class="hero-badge">CLD<br>Certified<br>LabVIEW<br>Developer<br>· NI ·</div>
+  </div>
+</div>
+
+<!-- PILLARS -->
+<section>
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">Áreas de especialización</span>
+  </div>
+  <div class="pillars">
+    <div class="pillar">
+      <span class="pillar-icon">🛣️</span>
+      <h3>Ingeniería Vial</h3>
+      <p>Sistemas de perfilometría sin contacto para análisis de calidad de pavimentos. Medición y procesamiento de IRI, perfil longitudinal y ahuellamiento. Validación y certificación de equipos de seguridad vial.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-icon">🔬</span>
+      <h3>Laboratorios & Biomédica</h3>
+      <p>Calibración y verificación de equipos médicos. Gestión de tecnología en salud e imágenes médicas. Pasantía clínica en la Universidad de Vermont. Electroestimulación para analgesia de migraña.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-icon">📐</span>
+      <h3>Matemática & DSP</h3>
+      <p>Procesamiento digital de señales para instrumentación científica. Interfaces SCADA para monitoreo de parámetros críticos. Desarrollo de software en LabVIEW para pruebas y sensores de alta precisión.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section>
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">Experiencia profesional</span>
+  </div>
+  <div class="timeline">
+
+    <div class="job">
+      <div class="job-year">2023 — hoy</div>
+      <div class="job-content">
+        <div class="job-company">Rheonics · Winterthur, Suiza</div>
+        <div class="job-role">Desarrollador LabVIEW</div>
+        <p class="job-desc">Desarrollo de software en LabVIEW para pruebas, calibración y monitoreo de sensores de alta precisión para fluidos industriales. Trabajo remoto internacional para empresa suiza de instrumentación.</p>
+      </div>
+      <div class="job-tag"><span class="tag accent">Activo</span></div>
+    </div>
+
+    <div class="job">
+      <div class="job-year">2022 — 2023</div>
+      <div class="job-content">
+        <div class="job-company">Indusoft Solutions · Lima, Perú</div>
+        <div class="job-role">Senior Software Engineer</div>
+        <p class="job-desc">Desarrollo de interfaces gráficas SCADA para el monitoreo de parámetros críticos — presión y temperatura — en centros de datos de misión crítica.</p>
+      </div>
+      <div class="job-tag"><span class="tag accent2">SCADA</span></div>
+    </div>
+
+    <div class="job">
+      <div class="job-year">2013 — 2022</div>
+      <div class="job-content">
+        <div class="job-company">HOB Consultores · Lima, Perú</div>
+        <div class="job-role">Desarrollador I+D+i — Seguridad Vial</div>
+        <p class="job-desc">8 años diseñando, implementando e innovando en tecnología para la seguridad vial peruana. Proyectos FINCYT ganados en concurso nacional. Medición de IRI, perfilometría, itinerarios fílmicos panorámicos. Atención 24/7 a clientes institucionales.</p>
+      </div>
+      <div class="job-tag"><span class="tag">I+D+i</span></div>
+    </div>
+
+    <div class="job">
+      <div class="job-year">2013</div>
+      <div class="job-content">
+        <div class="job-company">Universidad de Vermont · Burlington, EE.UU.</div>
+        <div class="job-role">Practicante — Ingeniería Clínica</div>
+        <p class="job-desc">Pasantía internacional en el programa Technical Support Partnership. Gestión de mantenimiento en el Hospital Fletcher Allen Health Care. Bases de datos, programación y diseño web para equipos médicos.</p>
+      </div>
+      <div class="job-tag"><span class="tag accent2">Biomédica</span></div>
+    </div>
+
+    <div class="job">
+      <div class="job-year">2012 — 2014</div>
+      <div class="job-content">
+        <div class="job-company">PUCP · Lima, Perú</div>
+        <div class="job-role">Tesista en Ingeniería Biomédica & Investigador</div>
+        <p class="job-desc">Diseño e implementación de equipo electroestimulador para analgesia en migraña. Investigación en metrología: procedimientos de verificación y calibración de equipos médicos para seguridad eléctrica.</p>
+      </div>
+      <div class="job-tag"><span class="tag">Investigación</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section>
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">Habilidades técnicas</span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-cell">
+      <div class="skill-label">Core</div>
+      <div class="skill-name">LabVIEW · CLD</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-label">Datos</div>
+      <div class="skill-name">SQL / Data Science</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-label">Señales</div>
+      <div class="skill-name">DSP / Instrumentación</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-label">Monitoreo</div>
+      <div class="skill-name">SCADA / HMI</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-label">Hardware</div>
+      <div class="skill-name">PCB Design</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-label">Fabricación</div>
+      <div class="skill-name">Impresión 3D / Láser</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-label">Web</div>
+      <div class="skill-name">Programación Web</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-label">Vial</div>
+      <div class="skill-name">IRI / Perfilometría</div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section>
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">Idiomas</span>
+  </div>
+  <div class="languages">
+    <div class="lang">
+      <div class="lang-name">Español</div>
+      <div class="lang-level">Nativo</div>
+    </div>
+    <div class="lang">
+      <div class="lang-name">Français</div>
+      <div class="lang-level">Bilingüe — Bac Scientifique</div>
+    </div>
+    <div class="lang">
+      <div class="lang-name">English</div>
+      <div class="lang-level">Professional Working</div>
+    </div>
+    <div class="lang">
+      <div class="lang-name">Italiano</div>
+      <div class="lang-level">Elemental</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FOOTER -->
+<div class="footer-cta">
+  <h2>Construyamos algo<br><em>que se pueda medir.</em></h2>
+  <p>Abierto a oportunidades en ingeniería, I+D e instrumentación científica</p>
+  <div class="cta-links">
+    <a class="cta-btn filled" href="mailto:juanalmenara@gmail.com">Escribir un correo</a>
+    <a class="cta-btn" href="tel:+51999304431">+51 999 304 431</a>
+    <a class="cta-btn" href="https://www.linkedin.com/in/juan-ignacio-almenara-ortiz-23b4383a/" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<script>
+  // Intersection Observer for scroll animations
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
