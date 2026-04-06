@@ -760,10 +760,10 @@ function setLang(lang) {
 function detectLang() {
   const saved = localStorage.getItem('preferred-lang');
   if (saved && i18n[saved]) return saved;
-  const browser = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
+  const browser = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
   if (browser.startsWith('fr')) return 'fr';
-  if (browser.startsWith('en')) return 'en';
-  return 'es';
+  if (browser.startsWith('es')) return 'es';
+  return 'en';
 }
 
 // Init
